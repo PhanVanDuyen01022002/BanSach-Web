@@ -91,17 +91,23 @@
 							</form>
 						</td>
 						<td>
-							<a href="XoaController?ms=<%=h.getMasach()%>">Xóa</a>
+							<a href="XoaController?ms=<%=h.getMasach()%>&x=1">Xóa</a>
 						</td>
 					</tr>
 				<% 	} if(gh.Tong()!=0){%>
 					<tr>
 						<td colspan="8"> Tổng tiền: <%=gh.Tong() %></td>
 					</tr>
-				<%}%>
+					<%}%>
 				</table>
 				<% if (gh.Tong() != 0) { %>
-				<form action="XacNhanController" >
+				<form class="d-inline" onsubmit="xoaChon(); return false;">
+					<input type="submit" name="xc" value="Xóa chọn" class="btn-primary me-3">
+				</form>
+				<form class="d-inline" action="XoaController?xh=1">
+					<input type="submit" name="xh" value="Xóa hết" class="btn-primary me-3">
+				</form>
+				<form class="d-inline" action="XacNhanController" >
 					<input type="submit" name="b1" value="Xác nhận đặt mua" class="btn-primary">
 				</form>
 				<%}
@@ -115,6 +121,26 @@
 			</td>
 		</tr>
 	</table>
+	<script>
+		function xoaChon() {
+			var checkboxes = document.getElementsByName("check");
+			var masachList = [];
+			const n = checkboxes.length;
+
+			for (var i = 0; i < n; i++) {
+				if (checkboxes[i].checked) {
+					masachList.push(checkboxes[i].value);
+				}
+			}
+
+			// Chuyển danh sách các masach đã được chọn thành một chuỗi dạng query string
+			var queryString = "?masachList="
+					+ encodeURIComponent(masachList.join(","));
+
+			// Chuyển hướng đến trang XoaController và truyền danh sách masach đã được chọn
+			window.location.href = "XoaController" + queryString;
+		}
+	</script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

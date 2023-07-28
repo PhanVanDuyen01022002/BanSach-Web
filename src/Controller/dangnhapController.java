@@ -34,33 +34,33 @@ public class dangnhapController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-	    	   response.setCharacterEncoding("utf-8");
-	           request.setCharacterEncoding("utf-8");
-		   		String un = request.getParameter("txtun");
-		   		String pass = request.getParameter("txtpass");
-	   			khachhangbo khbo = new khachhangbo();
-		   		if(un==null && pass==null) {
-		   			RequestDispatcher rd = request.getRequestDispatcher("dangnhap.jsp");
-		   			rd.forward(request, response);
-		   		} else {
-		   			khachhangbean kh = khbo.ktdn(un, pass);
-		   			if(kh!=null) {	//ok
-		   				HttpSession session = request.getSession();	
-		   				session.setAttribute("dn",kh);
-		   				//Điều ướng sang SachController
+			response.setCharacterEncoding("utf-8");
+			request.setCharacterEncoding("utf-8");
+	   		String un = request.getParameter("txtun");
+	   		String pass = request.getParameter("txtpass");
+   			khachhangbo khbo = new khachhangbo();
+	   		if(un==null && pass==null) {
+	   			RequestDispatcher rd = request.getRequestDispatcher("dangnhap.jsp");
+	   			rd.forward(request, response);
+	   		} else {
+	   			khachhangbean kh = khbo.ktdn(un, pass);
+	   			if(kh!=null) {	//ok
+	   				HttpSession session = request.getSession();	
+	   				session.setAttribute("dn",kh);
+	   				//Điều ướng sang SachController
 //		   				RequestDispatcher rd = request.getRequestDispatcher("sachController");
 //		   				rd.forward(request, response);
-		   				response.sendRedirect("sachController");
-		   			} else {	//ok
-		   				request.setAttribute("kt", 1);
-		   				RequestDispatcher rd = request.getRequestDispatcher("dangnhap.jsp");
-		   				rd.forward(request, response);
-		   			}
-		   		}
-			} catch (Exception e) {
-				// TODO: handle exception
-				e.printStackTrace();
-			}
+	   				response.sendRedirect("sachController");
+	   			} else {	//ok
+	   				request.setAttribute("kt", 1);
+	   				RequestDispatcher rd = request.getRequestDispatcher("dangnhap.jsp");
+	   				rd.forward(request, response);
+	   			}
+	   		}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 	}
 
 	/**

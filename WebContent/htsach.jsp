@@ -24,7 +24,7 @@
       	</button>
 		<div class="collapse navbar-collapse" id="navbarColor01">
 			<ul class="navbar-nav list-inline mx-2 mb-0 me-auto h-100 ">
-				<li class="nav-item list-inline-item me-3"><a class="text-decoration-none text-white-50" href="htgioController">Giỏ hàng(<%=session.getAttribute("sl") %>)</a></li>
+				<li class="nav-item list-inline-item me-3"><a class="text-decoration-none text-white-50" href="htgioController">Giỏ hàng</a></li>
 				<li class="nav-item list-inline-item me-3"><a class="text-decoration-none text-white-50" href="XacNhanController">Xác nhận đặt mua</a></li>
 				<li class="nav-item list-inline-item me-3"><a class="text-decoration-none text-white-50" href="LichSuController">Lịch sử mua hàng</a></li>
 			</ul>

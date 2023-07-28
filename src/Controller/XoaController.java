@@ -34,15 +34,46 @@ public class XoaController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		String ms = request.getParameter("ms");
-		giohangbo gh = (giohangbo)session.getAttribute("gh");
-		gh.XoaHang(ms);
-		//Luu bien vao session
-		session.setAttribute("gh", gh);
-		//Quay ve trang htgio.jsp
-		RequestDispatcher rd = request.getRequestDispatcher("htgioController");
-		rd.forward(request, response);
+		try {
+			HttpSession session = request.getSession();
+			if(request.getParameter("x")!=null) {
+				String ms = request.getParameter("ms");
+				giohangbo gh = (giohangbo)session.getAttribute("gh");
+				gh.XoaHang(ms);
+				//Luu bien vao session
+				session.setAttribute("gh", gh);
+				//Quay ve trang htgio.jsp
+				RequestDispatcher rd = request.getRequestDispatcher("htgioController");
+				rd.forward(request, response);
+			} else if(request.getParameter("masachList")!=null) {
+				String masachList = request.getParameter("masachList");
+
+		        // Kiểm tra nếu masachList không rỗng và không null
+		        if (masachList != null && !masachList.isEmpty()) {
+		            String[] masachArray = masachList.split(",");
+
+		            // Thực hiện việc xóa các masach đã được chọn ở đây
+		            giohangbo gh = (giohangbo)session.getAttribute("gh");
+		            if (gh != null) {
+		                for (String masach : masachArray) {
+		                    gh.XoaHang(masach);
+		                }
+		            }
+		            //Luu bien vao session
+					session.setAttribute("gh", gh);
+					//Quay ve trang htgio.jsp
+					RequestDispatcher rd = request.getRequestDispatcher("htgioController");
+					rd.forward(request, response);
+		        }
+			} else if(request.getParameter("xh")!=null) {
+				session.removeAttribute("gh");
+				RequestDispatcher rd = request.getRequestDispatcher("htgioController");
+				rd.forward(request, response);
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 
 	/**
